@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+  - const results = [{ instrument_name: 'Piano', category: 'Keyboard', price: 1000 }, { instrument_name: 'Guitar', category: 'String', price: 500 }, { instrument_name: 'Drums', category: 'Percussion', price: 800 }]
+  div(class='container-fluid')
+    each result, index in results
+      div(class='row', onclick=`buy(${index})`)
+        div(class='col-sm-2') #{result.instrument_name} 
+        div(class='col-sm-2') #{result.category} 
+        div(class='col-sm-2') #{result.price}
+
+  script.
+    function buy(index) {
+      alert('You purchased item ' + index);
+    }
+
