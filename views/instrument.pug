@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1= title
-  - const results = [{ instrument_name: 'Piano', category: 'Keyboard', price: 1000 }, { instrument_name: 'Guitar', category: 'String', price: 500 }, { instrument_name: 'Drums', category: 'Percussion', price: 800 }]
+  - var results = results
   div(class='container-fluid')
     each result, index in results
       div(class='row', onclick=`buy(${index})`)
