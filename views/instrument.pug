@@ -5,7 +5,9 @@ block content
   - var results = results
   div(class='container-fluid')
     each result, index in results
+      - let destination=`dispatch(\"/instruments/update?id=${result._id}\")`
       div(class='row', onclick=`buy(${index})`)
+        button.btn(class="btn-primary mb-2 col-sm-2", onclick= destination) Update
         div(class='col-sm-2') #{result.instrument_name} 
         div(class='col-sm-2') #{result.category} 
         div(class='col-sm-2') #{result.price}
@@ -14,4 +16,6 @@ block content
     function buy(index) {
       alert('You purchased item ' + index);
     }
-
+    function dispatch(path){
+      window.location.href=path
+    }

@@ -1,0 +1,50 @@
+extends layout
+block content
+  h1= title
+  if (toShow == null)
+    h2 No instance to delete
+  else
+    - let instrumentid = toShow._id
+    - let instrument_name = toShow.instrument_name
+    - let category = toShow.category
+    - let price = toShow.price
+    - let actionid = "/resource/instruments/" + instrumentid
+    script.
+      let actionid = "#{actionid}"
+    div
+      div.row
+        div(class='instrumentAttr mr-3') instrument ID is:
+        div #{instrumentid}
+      div.row
+        div(class='instrumentAttr mr-3') instrument_name is:
+        div #{instrument_name}
+      div.row
+        div(class='instrumentAttr mr-3') category is:
+        div #{category}
+      div.row
+        div(class='instrumentAttr mr-3') Price is:
+        div #{price}
+    button(class="btn btn-danger m-2" onclick="deleteOnid()") Delete
+    button(class="btn btn-secondary m-2" onclick="cancel()") Cancel
+    script.
+      function cancel() {
+        // Go back to the home page for the costume collection
+        window.location.href='/instruments'
+      }
+    script.
+      function deleteOnid() {
+        console.log("starting delete")
+        // delete first
+        fetch(actionid, {
+          method: 'DELETE' // Don't need a body for the delete
+        }).then((resp) => {
+          return resp.json(); // or resp.text() or whatever the server sends
+        }).then((body) => {
+          alert("Delete succeded")
+          window.location.href='/instruments'
+          // TODO handle body
+        }).catch((error) => {
+          // TODO handle error
+          alert("Delete failed " + error )
+        });
+      }

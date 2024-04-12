@@ -1,0 +1,40 @@
+extends layout
+block content
+  h1= title
+  - let instrumentid = toShow._id
+  - let instrument_name = toShow.instrument_name
+  - let category = toShow.category
+  - let price = toShow.price
+
+  div.row(class='mb-2')
+    div.mr-1 ID is
+      div #{instrumentid}
+    - let actionid = "/resource/instruments/" + instrumentid
+    form(id='instrumentForm', action= actionid, method="PUT")
+      div.form-group
+        label.instrumentAttr(for='instrument_name') Artist name
+        input#instrument_name(type='text', name='instrument_name', value= instrument_name )
+      div.form-group
+        label.instrumentAttr(for='category') Artist Masterpiece cost
+        input#category(type='text', name='category', value= category )
+      div.form-group
+        label.instrumentAttr(for='price') Artist Masterpiece Name
+        input#price(type='number', name='price', value= price )
+      input(type="submit")
+  script.
+    document.forms['instrumentForm'].addEventListener('submit', (event) => {
+      event.preventDefault();
+      // TODO do something here to show user that form is being submitted
+      fetch(event.target.action, {
+        method: 'PUT',
+        body: new URLSearchParams(new FormData(event.target)) // event.target is the form
+      }).then((resp) => {
+        return resp.json(); // or resp.text() or whatever the server sends
+      }).then((body) => {
+        alert("Update succeeded")
+        // TODO handle body
+      }).catch((error) => {
+        // TODO handle error
+        alert("Update failed " + error )
+      });
+    });
