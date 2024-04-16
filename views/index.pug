@@ -1,18 +1,9 @@
-extends layout
-
-block content
-  h1 Sahil Grewal
-  p Welcome to Sahil world
-  button(type="button", class="btn btn-secondary" onclick="double()") I am a button
-  div#double Up the amount.
-  a(href='/instruments') Instruments
-
-  script.
-    var value = 0;
-    var power = 1;
-
-    function double() {
-      value += 1;
-      power *= 2;
-      document.getElementById('double').innerText = `Two to the power ${value} is ${power}`;
-    } 
+if (!user)
+  a(href="/login") Login
+  br
+  a(href="/register") Register
+if (user)
+  p You are currently logged in as #{user.username}
+  a(href="/instruments") Take me to instruments
+  br
+  a(href="/logout") Logout

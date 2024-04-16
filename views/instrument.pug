@@ -2,12 +2,17 @@ extends layout
 
 block content
   h1= title
+  button.btn(class="btn-success ml-1", onclick="window.location.href='instruments/create'") Create Instrument
   - var results = results
   div(class='container-fluid')
     each result, index in results
       - let destination=`dispatch(\"/instruments/update?id=${result._id}\")`
+      - let detailDestination=`dispatch(\"/instruments/detail?id=${result._id}\")`
+      - let deleteDestination=`dispatch(\"/instruments/delete?id=${result._id}\")`
       div(class='row', onclick=`buy(${index})`)
         button.btn(class="btn-primary mb-2 col-sm-2", onclick= destination) Update
+        button.btn(class="btn-primary mb-2 col-sm-2", onclick= detailDestination) detail
+        button.btn(class="btn-primary mb-2 col-sm-2", onclick= deleteDestination) delete
         div(class='col-sm-2') #{result.instrument_name} 
         div(class='col-sm-2') #{result.category} 
         div(class='col-sm-2') #{result.price}

@@ -1,7 +1,18 @@
 const mongoose = require("mongoose");
 const instrumentSchema = mongoose.Schema({
-    instrument_name: String,
+    instrument_name: { 
+        type: String, 
+        enum: ['Piano', 'Guitar','Drums'], 
+        required: function() { 
+            return this.instrument_name;
+        }
+    },
     category: String,
-    price: Number
+    price: {
+        type: Number,
+        required: true,
+        min: [0],
+        max: [500000]
+    }
 });
 module.exports = mongoose.model("Instrument", instrumentSchema);
